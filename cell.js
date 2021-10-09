@@ -1,4 +1,4 @@
-function handleRequest(request) {
+async function handleRequest(request) {
   const { pathname } = new URL(request.url)
 
   if (pathname.startsWith('/html')) {
@@ -19,15 +19,26 @@ function handleRequest(request) {
   }
 
   if (pathname.startsWith('/json')) {
-    // Use stringify function to convert javascript object to JSON string.
-    const json = JSON.stringify({
-      message: 'Hello from Deno Deploy, I am a little cell',
-    })
+    if (request.method === 'POST') {
+      if (request.headers.get('Content-Type') === 'application/json') {
+        const j = await request.json()
+        // Use stringify function to convert javascript object to JSON string.
+        const json = JSON.stringify({
+          message: j.message,
+        })
+        return new Response(json, {
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+          },
+        })
+      }
+    }
 
-    return new Response(json, {
-      headers: {
-        'content-type': 'application/json; charset=UTF-8',
-      },
+    console.log('And now, to something completely different')
+    return new Response(JSON.stringify({ error: 'no body' }), {
+      status: 400,
+      statusText: 'Bad Request',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
     })
   }
 
