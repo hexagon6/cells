@@ -1,5 +1,10 @@
 import { assertEquals } from 'https://deno.land/std@0.110.0/testing/asserts.ts'
 import { delay } from 'https://deno.land/std@0.110.0/async/delay.ts'
+import { config } from 'https://deno.land/x/dotenv/mod.ts'
+
+const env = config()
+
+const BASE_ENDPOINT = env.BASE_ENDPOINT || 'http://0.0.0.0:8000/'
 
 const Post = async (url = '', data = {}) => {
   const response = await fetch(url, {
@@ -18,8 +23,15 @@ const Post = async (url = '', data = {}) => {
 }
 
 Deno.test('json fetch', async () => {
-  const res = await Post('http://0.0.0.0:8080/json', {
-    message: 2,
+  const res = await Post(`${BASE_ENDPOINT}json`, {
+    message: 3,
   })
-  assertEquals(res, { message: 2 })
+  assertEquals(res, { message: 3 })
+})
+
+Deno.test('world fetch', async () => {
+  const res = await Post(`${BASE_ENDPOINT}world`)
+  assertEquals(res.x, 9)
+  assertEquals(res.y, 9)
+  assertEquals(res.cells.length, 9 * 9)
 })
