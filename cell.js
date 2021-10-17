@@ -1,3 +1,10 @@
+import init, {
+  random_world,
+} from 'https://deno.land/x/cells_wasm@0.2.0/cells_wasm.js'
+
+let w = null
+await init().then(() => (w = random_world))
+
 async function handleRequest(request) {
   const { pathname } = new URL(request.url)
 
@@ -14,6 +21,14 @@ async function handleRequest(request) {
         // and the "charset=UTF-8" part implies to the client that the content
         // is encoded using UTF-8.
         'content-type': 'text/html; charset=UTF-8',
+      },
+    })
+  }
+
+  if (pathname.startsWith('/world')) {
+    return new Response(JSON.stringify(w()), {
+      headers: {
+        'content-type': 'application/json; charset=UTF-8',
       },
     })
   }
