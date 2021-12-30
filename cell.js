@@ -1,6 +1,6 @@
 import init, {
   random_world,
-} from 'https://deno.land/x/cells_wasm@0.2.0/cells_wasm.js'
+} from 'https://deno.land/x/cells_wasm@0.3.1/cells_wasm.js'
 
 let w = null
 await init().then(() => (w = random_world))
