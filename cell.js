@@ -6,6 +6,19 @@ let w = null
 await init().then(() => (w = random_world))
 
 async function handleRequest(request) {
+  if (request.method === 'OPTIONS') {
+    // const origin = request.headers.get('origin')
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': 600,
+      },
+    })
+  }
+
   const { pathname } = new URL(request.url)
 
   if (pathname.startsWith('/html')) {
