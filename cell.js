@@ -1,5 +1,6 @@
 import init, {
   random_world,
+  run_game_of_life,
 } from 'https://deno.land/x/cells_wasm@0.3.1/cells_wasm.js'
 
 let w = null
@@ -45,6 +46,21 @@ async function handleRequest(request) {
         'Access-Control-Allow-Origin': '*',
       },
     })
+  }
+
+  if (pathname.startsWith('/gol')) {
+    if (request.method === 'POST') {
+      if (request.headers.get('Content-Type') === 'application/json') {
+        const world = await request.json()
+        const new_world = run_game_of_life(world)
+        return new Response(JSON.stringify(new_world), {
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+      }
+    }
   }
 
   if (pathname.startsWith('/json')) {
