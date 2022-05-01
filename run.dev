@@ -1,0 +1,1 @@
+deno run --allow-read --allow-net=:8000,deno.land --watch cell.js

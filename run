@@ -1,1 +1,1 @@
-deployctl run --no-check --watch ./cell.js 
+deno run --allow-net=:8000,deno.land --watch cell.js

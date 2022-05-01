@@ -49,7 +49,7 @@ const Post = async (url = '', data = {}) => {
 }
 
 Deno.test('json fetch', async () => {
-  const res = await Post('http://0.0.0.0:8080/json', {
+  const res = await Post('http://0.0.0.0:8000/json', {
     message: 2,
   })
   assertEquals(res, { message: 2 })
