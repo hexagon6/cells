@@ -1,7 +1,7 @@
 import init, {
   random_world,
   run_game_of_life,
-} from 'https://deno.land/x/cells_wasm@0.3.1/cells_wasm.js'
+} from 'https://deno.land/x/cells_wasm@0.4.0/cells_wasm.js'
 
 let w = null
 await init().then(() => (w = random_world))
@@ -40,7 +40,13 @@ async function handleRequest(request) {
   }
 
   if (pathname.startsWith('/world')) {
-    return new Response(JSON.stringify(w()), {
+    const [, , dim] = pathname.split('/')
+    const [x, y] = dim.split('x')
+    const X = typeof x !== 'undefined' ? x : 9
+    const Y = typeof y !== 'undefined' ? y : 9
+    const world = w(X, Y)
+
+    return new Response(JSON.stringify({ ...world }), {
       headers: {
         'content-type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
