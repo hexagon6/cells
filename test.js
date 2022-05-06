@@ -6,7 +6,7 @@ import init, {
 
 import * as R from 'https://deno.land/x/ramda@v0.27.2/dist/ramda.js'
 
-https: Deno.test('async hello world', async () => {
+Deno.test('async hello world', async () => {
   const x = 1 + 2
 
   // await some async task
