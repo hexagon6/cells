@@ -1,8 +1,10 @@
+import { serve } from 'https://deno.land/std@0.114.0/http/server.ts'
 import init, {
   random_world,
   run_game_of_life,
 } from 'https://deno.land/x/cells_wasm@0.4.0/cells_wasm.js'
 
+const PORT = Deno.env.get('PORT') || 8000
 let w = null
 await init().then(() => (w = random_world))
 
@@ -117,3 +119,6 @@ async function handleRequest(request) {
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
+
+const options = { addr: `0.0.0.0:${PORT}` }
+serve(handleRequest, options)
