@@ -116,9 +116,5 @@ async function handleRequest(request) {
   )
 }
 
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
-
 const options = { addr: `0.0.0.0:${PORT}` }
 serve(handleRequest, options)
