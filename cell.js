@@ -61,7 +61,7 @@ async function handleRequest(request) {
     >
       <h1>API for cells.js</h1>
       <p>
-        <a href="/world">GET /world/10x10</a> - responds with a random world of size x = 10 and y = 10 in JSON format to the request.
+        <a href="/world/10x10">GET /world/10x10</a> - responds with a random world of size x = 10 and y = 10 in JSON format to the request.
       </p>
       <p>
         <a href="/gol">POST /gol</a> - post a world, this endpoint responds with the next step of a Game of Life simulation in JSON format to the request.
