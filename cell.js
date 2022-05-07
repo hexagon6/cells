@@ -100,12 +100,12 @@ async function handleRequest(request) {
       align="center"
       style="font-family: Avenir, Helvetica, Arial, sans-serif; font-size: 1.5rem;"
     >
-      <h1>Return JSON and/or HTML Example</h1>
+      <h1>API for cells.js</h1>
       <p>
-        <a href="/html">/html</a> - responds with HTML to the request.
+        <a href="/world">GET /world/10x10</a> - responds with a random world of size x = 10 and y = 10 in JSON format to the request.
       </p>
       <p>
-        <a href="/json">/json</a> - responds with JSON to the request.
+        <a href="/gol">POST /gol</a> - post a world, this endpoint responds with the next step of a Game of Life simulation in JSON format to the request.
       </p>
     </body>`,
     {
